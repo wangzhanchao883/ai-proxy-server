@@ -117,6 +117,11 @@ app.post('/ask', authMiddleware, async (req, res) => {
 });
 
 // ── 启动 ──
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Vercel 环境: export app, 本地环境: listen
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
